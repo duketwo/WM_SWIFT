@@ -19,6 +19,11 @@ class Util  {
     
     class func getTeamArray(sort : Bool, completion: ((array: [Team]) -> Void)) {
         
+        if(teams.count > 0) {
+            completion(array: self.teams)
+            return
+        }
+        
         var url  = NSURL(string: "http://www.c4s.de/api/teams")!
         //var url  = NSURL(string: "http://worldcup.kimonolabs.com/api/teams")!
         let task = session.dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
@@ -55,6 +60,10 @@ class Util  {
     
     class func getPlayerArray(sort : Bool, completion: ((array: [Player]) -> Void)) {
         
+        if(players.count > 0) {
+            completion(array: self.players)
+            return
+        }
         var url  = NSURL(string: "http://www.c4s.de/api/players")!
         //var url  = NSURL(string: "http://worldcup.kimonolabs.com/api/players")!
         let task = session.dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in

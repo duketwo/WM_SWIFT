@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3523E8491B5FC6F90042E105 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3523E8481B5FC6F90042E105 /* Player.swift */; };
+		3523E84B1B600F660042E105 /* TeamDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3523E84A1B600F660042E105 /* TeamDetailViewController.swift */; };
+		3523E84D1B600FC60042E105 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3523E84C1B600FC60042E105 /* ImageViewController.swift */; };
 		354AFC9F1B5E3A4100A61612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354AFC9E1B5E3A4100A61612 /* AppDelegate.swift */; };
 		354AFCA11B5E3A4100A61612 /* TeamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354AFCA01B5E3A4100A61612 /* TeamTableViewController.swift */; };
 		354AFCA41B5E3A4100A61612 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 354AFCA21B5E3A4100A61612 /* Main.storyboard */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		3523E8481B5FC6F90042E105 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ../Player.swift; sourceTree = "<group>"; };
+		3523E84A1B600F660042E105 /* TeamDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TeamDetailViewController.swift; path = ../TeamDetailViewController.swift; sourceTree = "<group>"; };
+		3523E84C1B600FC60042E105 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		354AFC991B5E3A4100A61612 /* WM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		354AFC9D1B5E3A4100A61612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		354AFC9E1B5E3A4100A61612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,7 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				354AFC9E1B5E3A4100A61612 /* AppDelegate.swift */,
+				3523E84C1B600FC60042E105 /* ImageViewController.swift */,
 				354AFCA01B5E3A4100A61612 /* TeamTableViewController.swift */,
+				3523E84A1B600F660042E105 /* TeamDetailViewController.swift */,
 				354AFCA21B5E3A4100A61612 /* Main.storyboard */,
 				354AFCA51B5E3A4100A61612 /* Images.xcassets */,
 				354AFCA71B5E3A4100A61612 /* LaunchScreen.xib */,
@@ -224,7 +230,9 @@
 				354AFCBF1B5E4C2400A61612 /* Team.swift in Sources */,
 				354AFCA11B5E3A4100A61612 /* TeamTableViewController.swift in Sources */,
 				354AFC9F1B5E3A4100A61612 /* AppDelegate.swift in Sources */,
+				3523E84D1B600FC60042E105 /* ImageViewController.swift in Sources */,
 				3523E8491B5FC6F90042E105 /* Player.swift in Sources */,
+				3523E84B1B600F660042E105 /* TeamDetailViewController.swift in Sources */,
 				354AFCC11B5E4E7600A61612 /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
