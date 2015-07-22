@@ -1,47 +1,33 @@
 //
-//  ViewController.swift
+//  PlayerTableViewController.swift
 //  WM
 //
-//  Created by DB on 21/07/15.
+//  Created by DB on 22/07/15.
 //  Copyright (c) 2015 Daniel Bader. All rights reserved.
 //
 
 import UIKit
 
-class TeamTableViewController: UITableViewController {
+class PlayerTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Util.getTeamArray(true) { teams in
+        Util.getPlayerArray(true) { players in
             dispatch_async(dispatch_get_main_queue()) {
-                
-                for t in teams {
-                    println(t.name)
+                for p in Util.players {
+                    
+                    println(p.firstName! + " " + p.lastName!)
                 }
-
                 self.tableView.reloadData()
-               
             }
         }
-        
-//        Util.getPlayerArray(true) { players in
-//            dispatch_async(dispatch_get_main_queue()) {
-//                for p in Util.players {
-//                
-//                   println(p.firstName! + " " + p.lastName!)
-//                }
-//                // go to something on the main thread 
-//            }
-//        }
-        
     }
-    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("TeamDetail") as! TeamDetailViewController
-        vc.team = Util.teams[indexPath.row] as Team
+        let vc = storyboard.instantiateViewControllerWithIdentifier("PlayerDetail") as! PlayerDetailViewController
+        vc.player = Util.players[indexPath.row] as Player
         self.navigationController?.pushViewController(vc, animated: true)
         //self.navigationItem.leftBarButtonItems?.removeAll()
     }
@@ -50,12 +36,12 @@ class TeamTableViewController: UITableViewController {
         
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
-        var team: Team = Util.teams[row] as Team
+        var player: Player = Util.players[row] as Player
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
-        imageView.image = team.image
+        imageView.image = player.image
         imageView.userInteractionEnabled = true
-        label.text = team.name
+        label.text = player.lastName
         
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
         imageView.addGestureRecognizer(tap);
@@ -73,7 +59,7 @@ class TeamTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Util.teams.count
+        return Util.players.count
     }
     
     
