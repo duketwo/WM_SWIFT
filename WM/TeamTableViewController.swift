@@ -13,21 +13,17 @@ class TeamTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
         Util.getTeamArray(true) { teams in
             dispatch_async(dispatch_get_main_queue()) {
                 
-//                for t in Util.teams {
-//                    println(t.name!)
-//                }
-                
+                for t in teams {
+                    println(t.name)
+                }
+
                 self.tableView.reloadData()
-                
                
             }
         }
-        
         
         Util.getPlayerArray(true) { players in
             dispatch_async(dispatch_get_main_queue()) {
@@ -39,15 +35,13 @@ class TeamTableViewController: UITableViewController {
             }
         }
         
-        
-        
     }
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("Detail") as! TeamDetailViewController
-        vc.thisTeam = Util.teams[indexPath.row] as Team
+        let vc = storyboard.instantiateViewControllerWithIdentifier("TeamDetail") as! TeamDetailViewController
+        vc.team = Util.teams[indexPath.row] as Team
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -77,12 +71,12 @@ class TeamTableViewController: UITableViewController {
         
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
-    }
-    
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Potentially incomplete method implementation.
+//        // Return the number of sections.
+//        return 1
+//    }
+//    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
