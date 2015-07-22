@@ -29,8 +29,4 @@ class Team: NSObject {
         self.matchesPlayed = matchesPlayed
         self.image = image
     }
-    
-    //func toString() -> string{
-        
-  //  }
 }

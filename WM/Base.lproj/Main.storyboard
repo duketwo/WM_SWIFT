@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bfr-S6-KfC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bfr-S6-KfC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--RootView ( Teams )-->
         <scene sceneID="2ue-6y-unv">
             <objects>
-                <tableViewController id="Vxp-yU-hSs" customClass="MainTableViewController" customModule="WM" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Vxp-yU-hSs" customClass="TeamTableViewController" customModule="WM" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fIn-dc-dHS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -18,9 +19,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="326-4V-ITh" id="22x-w6-4sB">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="Ssr-6d-Rc6" kind="show" id="9AA-af-rYH"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -28,7 +26,7 @@
                             <outlet property="delegate" destination="Vxp-yU-hSs" id="oyu-Vn-PNX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="H2B-qs-EW3"/>
+                    <navigationItem key="navigationItem" title="RootView ( Teams )" id="H2B-qs-EW3"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z7v-fh-fDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,6 +65,123 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fJj-s3-F7T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="70" y="281"/>
+        </scene>
+        <!--Team Detail View Controller-->
+        <scene sceneID="nbP-6r-VgK">
+            <objects>
+                <viewController storyboardIdentifier="Detail" id="bTE-iP-e2F" customClass="TeamDetailViewController" customModule="WM" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="j9D-4J-vfz"/>
+                        <viewControllerLayoutGuide type="bottom" id="RC1-x2-sx5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wLa-JZ-VPo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Team:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyY-cS-v3c">
+                                <rect key="frame" x="228" y="136" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Founded Year:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAu-Oy-KSU">
+                                <rect key="frame" x="162" y="166" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Group:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3N-SI-zSf">
+                                <rect key="frame" x="225" y="227" width="53" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Matches Played:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Neb-FQ-5Ko">
+                                <rect key="frame" x="150" y="258" width="128" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="foundedYear" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOC-YM-LUW">
+                                <rect key="frame" x="288" y="166" width="97" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="homeStadium" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMr-bp-PAt">
+                                <rect key="frame" x="288" y="197" width="286" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="group" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s28-tf-nvj">
+                                <rect key="frame" x="288" y="227" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="matchesPlayed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jik-bw-odp">
+                                <rect key="frame" x="288" y="258" width="118" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Home Stadium:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zC-9V-4YX">
+                                <rect key="frame" x="159" y="196" width="120" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYf-eD-ngd">
+                                <rect key="frame" x="290" y="343" width="0.0" height="97"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZm-9n-5ig">
+                                <rect key="frame" x="290" y="136" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oZm-9n-5ig" firstAttribute="leading" secondItem="qOC-YM-LUW" secondAttribute="leading" id="4aS-2K-Exw"/>
+                            <constraint firstItem="jik-bw-odp" firstAttribute="leading" secondItem="s28-tf-nvj" secondAttribute="leading" id="8sa-5E-OYj"/>
+                            <constraint firstItem="yAu-Oy-KSU" firstAttribute="trailing" secondItem="CyY-cS-v3c" secondAttribute="trailing" id="8yY-aO-imp"/>
+                            <constraint firstItem="oZm-9n-5ig" firstAttribute="leading" secondItem="CyY-cS-v3c" secondAttribute="trailing" constant="15" id="A7u-RS-FCd"/>
+                            <constraint firstItem="s28-tf-nvj" firstAttribute="top" secondItem="jMr-bp-PAt" secondAttribute="bottom" constant="10" id="Cq7-hw-WIZ"/>
+                            <constraint firstAttribute="centerY" secondItem="CyY-cS-v3c" secondAttribute="centerY" constant="154.5" id="F2n-NT-eTE"/>
+                            <constraint firstItem="jMr-bp-PAt" firstAttribute="top" secondItem="9zC-9V-4YX" secondAttribute="bottom" constant="-20" id="Fs3-L0-bLP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jMr-bp-PAt" secondAttribute="trailing" constant="10" id="GW6-i1-em5"/>
+                            <constraint firstItem="jMr-bp-PAt" firstAttribute="top" secondItem="qOC-YM-LUW" secondAttribute="bottom" constant="10" id="IL9-eU-rhA"/>
+                            <constraint firstItem="nYf-eD-ngd" firstAttribute="top" secondItem="jik-bw-odp" secondAttribute="bottom" constant="65" id="LjX-YT-cKf"/>
+                            <constraint firstItem="jik-bw-odp" firstAttribute="top" secondItem="s28-tf-nvj" secondAttribute="bottom" constant="10" id="ONY-W4-Qz4"/>
+                            <constraint firstItem="s28-tf-nvj" firstAttribute="leading" secondItem="jMr-bp-PAt" secondAttribute="leading" id="OpW-g4-GCr"/>
+                            <constraint firstItem="jMr-bp-PAt" firstAttribute="leading" secondItem="9zC-9V-4YX" secondAttribute="trailing" constant="10" id="ReW-b1-8TA"/>
+                            <constraint firstItem="E3N-SI-zSf" firstAttribute="trailing" secondItem="Neb-FQ-5Ko" secondAttribute="trailing" id="Tmd-4E-PXO"/>
+                            <constraint firstAttribute="centerY" secondItem="oZm-9n-5ig" secondAttribute="centerY" constant="154.5" id="UGr-49-VqW"/>
+                            <constraint firstItem="Neb-FQ-5Ko" firstAttribute="top" secondItem="E3N-SI-zSf" secondAttribute="bottom" constant="10" id="UIR-fW-EA4"/>
+                            <constraint firstAttribute="centerX" secondItem="CyY-cS-v3c" secondAttribute="centerX" constant="50" id="VI4-mP-G0k"/>
+                            <constraint firstItem="s28-tf-nvj" firstAttribute="centerY" secondItem="E3N-SI-zSf" secondAttribute="centerY" id="VbX-ce-3xw"/>
+                            <constraint firstItem="qOC-YM-LUW" firstAttribute="top" secondItem="oZm-9n-5ig" secondAttribute="bottom" constant="10" id="a3F-vZ-K7p"/>
+                            <constraint firstItem="yAu-Oy-KSU" firstAttribute="top" secondItem="CyY-cS-v3c" secondAttribute="bottom" constant="10" id="daq-Ak-dAr"/>
+                            <constraint firstItem="qOC-YM-LUW" firstAttribute="leading" secondItem="jMr-bp-PAt" secondAttribute="leading" id="fwP-K9-dO7"/>
+                            <constraint firstAttribute="centerX" secondItem="nYf-eD-ngd" secondAttribute="centerX" constant="10.5" id="rep-Eu-nVQ"/>
+                            <constraint firstItem="9zC-9V-4YX" firstAttribute="trailing" secondItem="E3N-SI-zSf" secondAttribute="trailing" id="y4r-DX-wfV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="GD5-nM-0cl"/>
+                    <connections>
+                        <outlet property="foundedYear" destination="qOC-YM-LUW" id="E3X-R2-Vxg"/>
+                        <outlet property="group" destination="s28-tf-nvj" id="mK5-yX-OjU"/>
+                        <outlet property="homeStadium" destination="jMr-bp-PAt" id="5TJ-4t-4JZ"/>
+                        <outlet property="matchesPlayed" destination="jik-bw-odp" id="8Pv-Pl-5CX"/>
+                        <outlet property="team" destination="oZm-9n-5ig" id="pMA-Ne-PuB"/>
+                        <outlet property="teamLogo" destination="nYf-eD-ngd" id="GvZ-Yz-YTk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7yq-fX-1bX" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="890" y="973"/>
         </scene>
     </scenes>
 </document>
