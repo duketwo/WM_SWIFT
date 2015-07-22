@@ -14,9 +14,8 @@ var session = NSURLSession.sharedSession()
 
 class Util  {
     
-    class func getTeamArray(completion: ((array: [Team]) -> Void)) {
+    class func getTeamArray(sort : Bool, completion: ((array: [Team]) -> Void)) {
         
-        //var teams : NSMutableArray = [];
         var teams = [Team]()
         var url  = NSURL(string: "http://worldcup.kimonolabs.com/api/teams")!
         let task = session.dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
@@ -40,11 +39,12 @@ class Util  {
                         
                         teams.append(newTeam);
                         
-                        
-                        
                     }
-                    
+                    if(sort) {
+                       teams.sort({ $0.name < $1.name })
+                    }
                     completion(array: teams)
+                        
                     
                 }
             })

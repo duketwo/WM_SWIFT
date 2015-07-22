@@ -16,12 +16,10 @@ class MainTableViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        Util.getTeamArray() { teams in
+        Util.getTeamArray(true) { teams in
             dispatch_async(dispatch_get_main_queue()) {
-                //println("test")
-                var olo = teams.sort($0.name < $1.name)
                 for t in teams {
-                   println(t.name!)
+                    println(t.name!)
                 }
                 
                 // go to something on the main thread with the image like setting to UIImageView
