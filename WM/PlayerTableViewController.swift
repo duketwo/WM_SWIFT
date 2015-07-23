@@ -8,10 +8,30 @@
 
 import UIKit
 
-class PlayerTableViewController: UITableViewController {
+class PlayerTableViewController: UITableViewController, UISearchResultsUpdating {
+    
+    var searchController = UISearchController(searchResultsController: nil)
+    var filteredData = [Player]()
+    
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
+        filteredData.removeAll(keepCapacity: false)
+        
+        let searchPredicate = NSPredicate(format: "SELF.lastName contains[cd] %@", searchController.searchBar.text)
+        filteredData = (Util.players as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Player]
+        self.tableView.reloadData()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
         
         Util.getPlayerArray(true) { players in
             dispatch_async(dispatch_get_main_queue()) {
@@ -31,7 +51,12 @@ class PlayerTableViewController: UITableViewController {
         
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
-        var player: Player = Util.players[row] as Player
+        
+        var player = Util.players[row]
+        if self.searchController.active {
+            player = filteredData[row] as Player
+        }
+        
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
         imageView.image = player.image
@@ -54,6 +79,9 @@ class PlayerTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.searchController.active {
+            return filteredData.count
+        }
         return Util.players.count
     }
     

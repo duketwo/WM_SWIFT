@@ -12,10 +12,8 @@ import UIKit
 
 class ClubTableViewController: UITableViewController, UISearchResultsUpdating {
     
-    
     var searchController = UISearchController(searchResultsController: nil)
     var filteredData = [Club]()
-    
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
