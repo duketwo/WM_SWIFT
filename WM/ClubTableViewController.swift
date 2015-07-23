@@ -19,7 +19,7 @@ class ClubTableViewController: UITableViewController, UISearchResultsUpdating {
         
         filteredData.removeAll(keepCapacity: false)
         let searchPredicate = NSPredicate(format: "SELF.name contains[cd] %@", searchController.searchBar.text)
-        filteredData = (Util.clubs as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Club]
+        filteredData = searchController.searchBar.text.isEmpty ? Util.clubs : (Util.clubs as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Club]
         self.tableView.reloadData()
     }
     

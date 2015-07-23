@@ -15,11 +15,9 @@ class PlayerTableViewController: UITableViewController, UISearchResultsUpdating 
     
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
         filteredData.removeAll(keepCapacity: false)
-        
         let searchPredicate = NSPredicate(format: "SELF.lastName contains[cd] %@", searchController.searchBar.text)
-        filteredData = (Util.players as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Player]
+        filteredData = searchController.searchBar.text.isEmpty ? Util.players :(Util.players as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Player]
         self.tableView.reloadData()
     }
     

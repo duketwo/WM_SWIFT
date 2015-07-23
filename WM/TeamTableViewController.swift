@@ -17,7 +17,7 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filteredData.removeAll(keepCapacity: false)
         let searchPredicate = NSPredicate(format: "SELF.name contains[cd] %@", searchController.searchBar.text)
-        filteredData = (Util.teams as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Team]
+        filteredData = searchController.searchBar.text.isEmpty ? Util.teams :(Util.teams as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Team]
         self.tableView.reloadData()
     }
     
