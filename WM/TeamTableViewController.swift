@@ -10,6 +10,7 @@ import UIKit
 
 class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
     
+    /* Search  --------------------------------------------------------- */
     var searchController = UISearchController(searchResultsController: nil)
     var filteredData = [Team]()
     
@@ -19,21 +20,21 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
         filteredData.removeAll(keepCapacity: false)
         
         let searchPredicate = NSPredicate(format: "SELF.name contains[cd] %@", searchController.searchBar.text)
-        filteredData = (Util.teams as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Team]        
+        filteredData = (Util.teams as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Team]
         self.tableView.reloadData()
-        
-        
     }
+    /*  EndSearch  ----------------------------------------------------- */
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        /* Search  --------------------------------------------------------- */
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.sizeToFit()
         self.tableView.tableHeaderView = searchController.searchBar
+        /*  EndSearch  ----------------------------------------------------- */
         
         Util.getTeamArray(true) { teams in
             
