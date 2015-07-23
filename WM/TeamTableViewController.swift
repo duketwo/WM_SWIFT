@@ -13,20 +13,28 @@ class TeamTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         Util.getTeamArray(true) { teams in
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
-               
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                }
             }
         }
         
         Util.getPlayerArray(true) { players in
-            dispatch_async(dispatch_get_main_queue()) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                }
             }
         }
         
         Util.getClubArray(true) { players in
-            dispatch_async(dispatch_get_main_queue()) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                }
             }
         }
         
