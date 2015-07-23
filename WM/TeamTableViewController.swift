@@ -8,12 +8,32 @@
 
 import UIKit
 
-class TeamTableViewController: UITableViewController {
+class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
+    
+    var searchController = UISearchController(searchResultsController: nil)
+    var filteredData = [Team]()
+    
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
+        filteredData.removeAll(keepCapacity: false)
+        
+        let searchPredicate = NSPredicate(format: "SELF.name contains[cd] %@", searchController.searchBar.text)
+        filteredData = (Util.teams as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Team]        
+        self.tableView.reloadData()
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
         
         Util.getTeamArray(true) { teams in
             
@@ -41,28 +61,32 @@ class TeamTableViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("TeamDetail") as! TeamDetailViewController
-        vc.team = Util.teams[indexPath.row] as Team
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
-        var team: Team = Util.teams[row] as Team
+        
+        var team = Util.teams[row]
+        if self.searchController.active {
+            team = filteredData[row] as Team
+        }
+        
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
         imageView.image = team.image
         imageView.userInteractionEnabled = true
         label.text = team.name
-        
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
         imageView.addGestureRecognizer(tap);
-        
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("TeamDetail") as! TeamDetailViewController
+        vc.team = Util.teams[indexPath.row] as Team
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func handleTap(sender: UIGestureRecognizer) {
@@ -75,6 +99,11 @@ class TeamTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if self.searchController.active {
+            return filteredData.count
+        }
+        
         return Util.teams.count
     }
     
