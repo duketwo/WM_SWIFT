@@ -16,6 +16,7 @@ class Util  {
     
     static var teams = [Team]()
     static var players = [Player]()
+    static var clubs = [Club]()
     
     class func getTeamArray(sort : Bool, completion: ((array: [Team]) -> Void)) {
         
@@ -93,6 +94,61 @@ class Util  {
                         self.players.sort({ $0.lastName < $1.lastName })
                     }
                     completion(array: self.players)
+                    
+                    
+                }
+            })
+        })
+        task.resume()
+        
+    }
+    
+    
+    class func getClubArray(sort : Bool, completion: ((array: [Club]) -> Void)) {
+        
+        if(clubs.count > 0) {
+            completion(array: self.clubs)
+            return
+        }
+        
+        var url  = NSURL(string: "http://www.c4s.de/api/clubs")!
+        //var url  = NSURL(string: "http://worldcup.kimonolabs.com/api/clubs")!
+        let task = session.dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
+            var error : NSError? = nil
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error) as? [ [String : AnyObject ] ] {
+                    // init(name: String?, country: String?, stadiumName: String?, stadiumCapacity: Int?, foundedYear: Int?, image: UIImage?) {
+                    for dict in json {
+                        var name = dict["name"] as! String
+                        
+                        var country = ""
+                        if let nCountry = dict["country"] as? String {
+                            country = dict["country"] as! String
+                        }
+                        var stadiumName = dict["stadiumName"] as! String
+                        var stadiumCapacity = dict["stadiumCapacity"] as! Int
+                        
+                        var foundedYear = 0
+                        if let nFoundedYear = dict["foundedYear"] as? Int {
+                            foundedYear = dict["foundedYear"] as! Int
+                        }
+                        
+                        var imageUrl = dict["logo"] as! String;
+                        
+                        let url = NSURL(string: imageUrl);
+                        let data = NSData(contentsOfURL: url!)
+                        
+                        var image = UIImage(data: data!);
+                        
+                        var club:Club = Club(name: name, country: country, stadiumName: stadiumName, stadiumCapacity: stadiumCapacity, foundedYear: foundedYear, image: image)
+                        
+                        self.clubs.append(club)
+                    }
+                    
+                    if(sort) {
+                        self.clubs.sort({ $0.name < $1.name })
+                    }
+                    completion(array: self.clubs)
                     
                     
                 }

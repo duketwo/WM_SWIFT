@@ -15,10 +15,6 @@ class PlayerTableViewController: UITableViewController {
         
         Util.getPlayerArray(true) { players in
             dispatch_async(dispatch_get_main_queue()) {
-                for p in Util.players {
-                    
-                    println(p.firstName! + " " + p.lastName!)
-                }
                 self.tableView.reloadData()
             }
         }
@@ -29,7 +25,6 @@ class PlayerTableViewController: UITableViewController {
         let vc = storyboard.instantiateViewControllerWithIdentifier("PlayerDetail") as! PlayerDetailViewController
         vc.player = Util.players[indexPath.row] as Player
         self.navigationController?.pushViewController(vc, animated: true)
-        //self.navigationItem.leftBarButtonItems?.removeAll()
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

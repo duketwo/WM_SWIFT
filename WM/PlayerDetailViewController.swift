@@ -28,14 +28,14 @@ class PlayerDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showTeamDetails()
+        showPlayerDetails()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func showTeamDetails(){
+    func showPlayerDetails(){
         
         firstNameLabel.text = player.firstName
         lastNameLabel.text = player.lastName

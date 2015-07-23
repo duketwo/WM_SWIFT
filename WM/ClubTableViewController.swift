@@ -1,42 +1,31 @@
 //
-//  ViewController.swift
+//  GroupTableViewController.swift
 //  WM
 //
-//  Created by DB on 21/07/15.
+//  Created by DB on 22/07/15.
 //  Copyright (c) 2015 Daniel Bader. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class TeamTableViewController: UITableViewController {
+
+class ClubTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Util.getTeamArray(true) { teams in
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
-               
-            }
-        }
-        
-        Util.getPlayerArray(true) { players in
-            dispatch_async(dispatch_get_main_queue()) {
-            }
-        }
-        
         Util.getClubArray(true) { players in
             dispatch_async(dispatch_get_main_queue()) {
+                self.tableView.reloadData()
             }
         }
-        
     }
-    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("TeamDetail") as! TeamDetailViewController
-        vc.team = Util.teams[indexPath.row] as Team
+        let vc = storyboard.instantiateViewControllerWithIdentifier("ClubDetail") as! ClubDetailViewController
+        vc.club = Util.clubs[indexPath.row] as Club
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -44,18 +33,19 @@ class TeamTableViewController: UITableViewController {
         
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
-        var team: Team = Util.teams[row] as Team
+        var club: Club = Util.clubs[row] as Club
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
-        imageView.image = team.image
+        imageView.image = club.image
         imageView.userInteractionEnabled = true
-        label.text = team.name
+        label.text = club.name
         
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
         imageView.addGestureRecognizer(tap);
         
         return cell
     }
+    
     
     func handleTap(sender: UIGestureRecognizer) {
         var imageView: UIImageView = sender.view as! UIImageView;
@@ -65,9 +55,10 @@ class TeamTableViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated:true);
         
     }
+
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Util.teams.count
+        return Util.clubs.count
     }
     
     
@@ -75,11 +66,9 @@ class TeamTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    
     override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
     }
     
     
 }
-
