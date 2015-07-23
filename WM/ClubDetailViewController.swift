@@ -25,11 +25,24 @@ class ClubDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.userInteractionEnabled = true
+        clubImage.userInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
+        tap.numberOfTapsRequired = 1
+        clubImage.addGestureRecognizer(tap);
         showClubDetails()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func handleTap(sender: UIGestureRecognizer) {
+        var imageView: UIImageView = sender.view as! UIImageView;
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("ImageView") as! ImageViewController;
+        vc.logo = imageView.image;
+        self.navigationController?.pushViewController(vc, animated:true);
     }
     
     func showClubDetails(){
