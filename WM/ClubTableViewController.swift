@@ -18,7 +18,6 @@ class ClubTableViewController: UITableViewController, UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
         filteredData.removeAll(keepCapacity: false)
-        
         let searchPredicate = NSPredicate(format: "SELF.name contains[cd] %@", searchController.searchBar.text)
         filteredData = (Util.clubs as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Club]
         self.tableView.reloadData()
@@ -44,7 +43,7 @@ class ClubTableViewController: UITableViewController, UISearchResultsUpdating {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("ClubDetail") as! ClubDetailViewController
-        vc.club = Util.clubs[indexPath.row] as Club
+        vc.club = self.searchController.active ? filteredData[indexPath.row]: Util.clubs[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -52,13 +51,7 @@ class ClubTableViewController: UITableViewController, UISearchResultsUpdating {
         
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
-        
-        
-        var club = Util.clubs[row]
-        if self.searchController.active {
-            club = filteredData[row] as Club
-        }
-        
+        var club = self.searchController.active ? filteredData[row] : Util.clubs[row]
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
         imageView.image = club.image
@@ -83,10 +76,7 @@ class ClubTableViewController: UITableViewController, UISearchResultsUpdating {
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.searchController.active {
-            return filteredData.count
-        }
-        return Util.clubs.count
+        return self.searchController.active ? filteredData.count : Util.clubs.count
     }
     
     

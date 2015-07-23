@@ -23,7 +23,6 @@ class PlayerTableViewController: UITableViewController, UISearchResultsUpdating 
         self.tableView.reloadData()
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +42,7 @@ class PlayerTableViewController: UITableViewController, UISearchResultsUpdating 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("PlayerDetail") as! PlayerDetailViewController
-        vc.player = Util.players[indexPath.row] as Player
+        vc.player = self.searchController.active ? filteredData[indexPath.row] : Util.players[indexPath.row] as Player
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -51,18 +50,12 @@ class PlayerTableViewController: UITableViewController, UISearchResultsUpdating 
         
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
-        
-        var player = Util.players[row]
-        if self.searchController.active {
-            player = filteredData[row] as Player
-        }
-        
+        var player = self.searchController.active ? filteredData[row] : Util.players[row]
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
         imageView.image = player.image
         imageView.userInteractionEnabled = true
         label.text = player.lastName
-        
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
         imageView.addGestureRecognizer(tap);
         
@@ -79,10 +72,7 @@ class PlayerTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.searchController.active {
-            return filteredData.count
-        }
-        return Util.players.count
+        return self.searchController.active ? filteredData.count : Util.players.count
     }
     
     

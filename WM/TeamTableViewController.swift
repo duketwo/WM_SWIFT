@@ -10,31 +10,25 @@ import UIKit
 
 class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
     
-    /* Search  --------------------------------------------------------- */
     var searchController = UISearchController(searchResultsController: nil)
     var filteredData = [Team]()
     
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
         filteredData.removeAll(keepCapacity: false)
-        
         let searchPredicate = NSPredicate(format: "SELF.name contains[cd] %@", searchController.searchBar.text)
         filteredData = (Util.teams as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Team]
         self.tableView.reloadData()
     }
-    /*  EndSearch  ----------------------------------------------------- */
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* Search  --------------------------------------------------------- */
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.sizeToFit()
         self.tableView.tableHeaderView = searchController.searchBar
-        /*  EndSearch  ----------------------------------------------------- */
         
         Util.getTeamArray(true) { teams in
             
@@ -61,18 +55,11 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
         
     }
     
-    
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
-        
-        var team = Util.teams[row]
-        if self.searchController.active {
-            team = filteredData[row] as Team
-        }
-        
+        var team = self.searchController.active ? filteredData[row] : Util.teams[row]
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
         imageView.image = team.image
@@ -86,7 +73,7 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("TeamDetail") as! TeamDetailViewController
-        vc.team = Util.teams[indexPath.row] as Team
+        vc.team = self.searchController.active ? filteredData[indexPath.row] : Util.teams[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -100,12 +87,7 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if self.searchController.active {
-            return filteredData.count
-        }
-        
-        return Util.teams.count
+        return self.searchController.active ? filteredData.count : Util.teams.count
     }
     
     
