@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TeamTableViewController.swift
 //  WM
 //
 //  Created by DB on 21/07/15.

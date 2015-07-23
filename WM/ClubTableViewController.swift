@@ -1,5 +1,5 @@
 //
-//  GroupTableViewController.swift
+//  ClubTableViewController.swift
 //  WM
 //
 //  Created by DB on 22/07/15.
