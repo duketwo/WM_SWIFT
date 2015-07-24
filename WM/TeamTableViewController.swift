@@ -39,19 +39,19 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
             }
         }
         
-        Util.getPlayerArray(true) { players in
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
-                dispatch_async(dispatch_get_main_queue()) {
-                }
-            }
-        }
-        
-        Util.getClubArray(true) { players in
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
-                dispatch_async(dispatch_get_main_queue()) {
-                }
-            }
-        }
+//        Util.getPlayerArray(true) { players in
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
+//                dispatch_async(dispatch_get_main_queue()) {
+//                }
+//            }
+//        }
+//        
+//        Util.getClubArray(true) { players in
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
+//                dispatch_async(dispatch_get_main_queue()) {
+//                }
+//            }
+//        }
         
     }
     
