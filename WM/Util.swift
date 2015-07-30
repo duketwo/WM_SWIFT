@@ -17,6 +17,8 @@ class Util  {
     static var teams = [Team]()
     static var players = [Player]()
     static var clubs = [Club]()
+    //static var imgCache = [:]
+    static var imgCache = Dictionary<String, UIImage>()
     
     class func getTeamArray(sort : Bool, completion: ((array: [Team]) -> Void)) {
         
@@ -38,10 +40,10 @@ class Util  {
                         var group = dict["group"] as! String
                         var matchesPlayed = dict["matchesPlayed"] as! Int
                         var imageUrl = dict["logo"] as! String;
-                        let url = NSURL(string: imageUrl);
-                        let data = NSData(contentsOfURL: url!)
+//                        let url = NSURL(string: imageUrl);
+//                        let data = NSData(contentsOfURL: url!)
                         var image = UIImage(data: data!);
-                        var newTeam:Team = Team(name: name, group: group, matchesPlayed: matchesPlayed, image: image, foundedYear: foundedYear, homeStadium: homeStadium)
+                        var newTeam:Team = Team(name: name, group: group, matchesPlayed: matchesPlayed, imageUrl: imageUrl, foundedYear: foundedYear, homeStadium: homeStadium)
                         
                         self.teams.append(newTeam);
                         
@@ -140,9 +142,9 @@ class Util  {
                         
                         var image = UIImage(data: data!);
                         
-                        var club:Club = Club(name: name, country: country, stadiumName: stadiumName, stadiumCapacity: stadiumCapacity, foundedYear: foundedYear, image: image)
+                        var newClub:Club = Club(name: name, country: country, stadiumName: stadiumName, stadiumCapacity: stadiumCapacity, foundedYear: foundedYear, image: image)
                         
-                        self.clubs.append(club)
+                        self.clubs.append(newClub)
                     }
                     
                     if(sort) {
