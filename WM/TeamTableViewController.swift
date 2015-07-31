@@ -59,35 +59,6 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
             }
         }
         
-        //        let cache = Util.imgCache as NSDictionary
-        //        if let image = cache.objectForKey(team.imageUrl!) as? UIImage {
-        //
-        //         println("[loaded from cache]: " + team.imageUrl!)
-        //
-        //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-        //                dispatch_async(dispatch_get_main_queue()) {
-        //                    imageView.image = image;
-        //                }
-        //            }
-        //
-        //        } else {
-        //            println("[added to cache]: " + team.imageUrl!)
-        //
-        //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-        //
-        //                let url = NSURL(string: team.imageUrl!);
-        //                let data = NSData(contentsOfURL: url!)
-        //                let image = UIImage(data: data!)
-        //
-        //
-        //                dispatch_async(dispatch_get_main_queue()) {
-        //                    imageView.image = image
-        //                    Util.imgCache[team.imageUrl!] = image
-        //                }
-        //            }
-        //
-        //        }
-        
         imageView.userInteractionEnabled = true
         label.text = team.name
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));
