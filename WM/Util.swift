@@ -71,13 +71,43 @@ class Util  {
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error) as? [ [String : AnyObject ] ] {
                     for dict in json {
-                        var name = dict["name"] as! String
-                        var foundedYear = dict["foundedYear"] as! Int
-                        var homeStadium = dict["homeStadium"] as! String
-                        var group = dict["group"] as! String
-                        var matchesPlayed = dict["matchesPlayed"] as! Int
-                        var imageUrl = dict["logo"] as! String;
-                        var image = UIImage(data: data!);
+                        
+                        
+                        
+                        var name = ""
+                        if let szName = dict["name"] as? String {
+                            name = szName
+                        }
+                        
+                        
+                        var foundedYear = 0
+                        if let nFoundedYear = dict["foundedYear"] as? Int {
+                            foundedYear = nFoundedYear
+                        }
+                        
+                        
+                        var homeStadium = ""
+                        if  let szHomeStadium = dict["homeStadium"] as? String {
+                            homeStadium = szHomeStadium
+                        }
+                        
+                        var group = ""
+                        if let szGroup = dict["group"] as? String {
+                            group = szGroup
+                        }
+                        
+                        var matchesPlayed = 0
+                        if let nMatchesPlayed = dict["matchesPlayed"] as? Int {
+                            matchesPlayed = nMatchesPlayed
+                        }
+                        
+                        var imageUrl = ""
+                        if let szImageUrl = dict["logo"] as? String {
+                            imageUrl = szImageUrl
+                        }
+                        
+                        
+                        
                         var newTeam:Team = Team(name: name, group: group, matchesPlayed: matchesPlayed, imageUrl: imageUrl, foundedYear: foundedYear, homeStadium: homeStadium)
                         
                         self.teams.append(newTeam);
@@ -111,16 +141,46 @@ class Util  {
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error) as? [ [String : AnyObject ] ] {
                     for dict in json {
-                        var firstName = dict["firstName"] as! String
-                        var lastName = dict["lastName"] as! String
-                        var nationality = dict["nationality"] as! String
-                        var age = dict["age"] as! Int
-                        var goals = dict["goals"] as! Int
-                        var imageUrl = dict["image"] as! String;
-                        var birthCity = ""
-                        if let bCity = dict["birthCity"]  as? String  {
-                            birthCity = dict["birthCity"] as! String;
+                        
+                        
+                        var firstName = ""
+                        if let szFirstName = dict["firstName"] as? String {
+                            firstName = szFirstName
                         }
+                        
+                        var lastName = ""
+                        if let szLastName = dict["lastName"] as? String {
+                            lastName = szLastName
+                        }
+                        
+                        var nationality = ""
+                        if let szNationality = dict["nationality"] as? String {
+                            nationality = szNationality
+                        }
+                        
+                        
+                        var age = 0
+                        if let nAge = dict["age"] as? Int {
+                            age = nAge
+                        }
+                        
+                        
+                        var goals = 0
+                        if let nGoals = dict["goals"] as? Int {
+                            goals = nGoals
+                        }
+                        
+                        var imageUrl = ""
+                        if let szImageUrl = dict["image"] as? String {
+                            imageUrl = szImageUrl
+                        }
+                        
+                        
+                        var birthCity = ""
+                        if let szBirthCity = dict["birthCity"]  as? String  {
+                            birthCity = szBirthCity
+                        }
+                        
                         var newPlayer:Player = Player(firstName: firstName, lastName: lastName, nationality: nationality, age:age, goals: goals, imageUrl: imageUrl, birthCity: birthCity)
                         
                         self.players.append(newPlayer);
@@ -157,7 +217,7 @@ class Util  {
                     for dict in json {
                         
                         var name = ""
-                        if let szName = dict["country"] as? String {
+                        if let szName = dict["name"] as? String {
                             name = szName
                         }
                         
