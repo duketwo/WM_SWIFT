@@ -51,6 +51,15 @@ class ClubDetailViewController: UIViewController {
         stadiumNameLabel.text = club.stadiumName
         stadiumCapacityLabel.text = String(club.stadiumCapacity!)
         foundedYearLabel.text = String(club.foundedYear!)
-        clubImage.image = club.image
+
+        Util.getImage(club.imageUrl) { image in
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.clubImage.image = image;
+                }
+            }
+        }
+
     }
 }

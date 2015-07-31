@@ -16,14 +16,14 @@ class Club: NSObject {
     var stadiumName: String?
     var stadiumCapacity: Int?
     var foundedYear: Int?
-    var image:UIImage?
+    var imageUrl : String?
     
-    init(name: String?, country: String?, stadiumName: String?, stadiumCapacity: Int?, foundedYear: Int?, image: UIImage?) {
+    init(name: String?, country: String?, stadiumName: String?, stadiumCapacity: Int?, foundedYear: Int?, imageUrl: String?) {
         self.name = name
         self.country = country
         self.stadiumName = stadiumName
         self.stadiumCapacity = stadiumCapacity
         self.foundedYear = foundedYear
-        self.image = image
+        self.imageUrl = imageUrl
     }
 }

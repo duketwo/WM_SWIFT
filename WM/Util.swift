@@ -167,12 +167,7 @@ class Util  {
                         
                         var imageUrl = dict["logo"] as! String;
                         
-                        let url = NSURL(string: imageUrl);
-                        let data = NSData(contentsOfURL: url!)
-                        
-                        var image = UIImage(data: data!);
-                        
-                        var newClub:Club = Club(name: name, country: country, stadiumName: stadiumName, stadiumCapacity: stadiumCapacity, foundedYear: foundedYear, image: image)
+                        var newClub:Club = Club(name: name, country: country, stadiumName: stadiumName, stadiumCapacity: stadiumCapacity, foundedYear: foundedYear, imageUrl: imageUrl)
                         
                         self.clubs.append(newClub)
                     }
