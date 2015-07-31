@@ -39,20 +39,6 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
             }
         }
         
-//        Util.getPlayerArray(true) { players in
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
-//                dispatch_async(dispatch_get_main_queue()) {
-//                }
-//            }
-//        }
-//        
-//        Util.getClubArray(true) { players in
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
-//                dispatch_async(dispatch_get_main_queue()) {
-//                }
-//            }
-//        }
-        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -64,46 +50,43 @@ class TeamTableViewController: UITableViewController, UISearchResultsUpdating  {
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
         
         
-        //imageView.image = team.image
-        
-//        if let data = self.cache.objectForKey(team.imageUrl) as? NSData {
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-//                let image = UIImage(data: data)
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    imageView.image = image;
-//                }
-//            }
-        
-        let cache = Util.imgCache as NSDictionary
-        if let image = cache.objectForKey(team.imageUrl!) as? UIImage {
+        Util.getImage(team.imageUrl) { image in
             
-         println("cached: " + team.imageUrl!)
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
                 dispatch_async(dispatch_get_main_queue()) {
                     imageView.image = image;
                 }
             }
-   
-        } else {
-            println("not cached: " + team.imageUrl!)
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-                
-                let url = NSURL(string: team.imageUrl!);
-                let data = NSData(contentsOfURL: url!)
-                let image = UIImage(data: data!)
-
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    imageView.image = image
-                    Util.imgCache[team.imageUrl!] = image
-                }
-            }
-            
-            
         }
         
+        //        let cache = Util.imgCache as NSDictionary
+        //        if let image = cache.objectForKey(team.imageUrl!) as? UIImage {
+        //
+        //         println("[loaded from cache]: " + team.imageUrl!)
+        //
+        //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+        //                dispatch_async(dispatch_get_main_queue()) {
+        //                    imageView.image = image;
+        //                }
+        //            }
+        //
+        //        } else {
+        //            println("[added to cache]: " + team.imageUrl!)
+        //
+        //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+        //
+        //                let url = NSURL(string: team.imageUrl!);
+        //                let data = NSData(contentsOfURL: url!)
+        //                let image = UIImage(data: data!)
+        //
+        //
+        //                dispatch_async(dispatch_get_main_queue()) {
+        //                    imageView.image = image
+        //                    Util.imgCache[team.imageUrl!] = image
+        //                }
+        //            }
+        //
+        //        }
         
         imageView.userInteractionEnabled = true
         label.text = team.name

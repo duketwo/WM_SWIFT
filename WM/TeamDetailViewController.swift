@@ -17,7 +17,6 @@ class TeamDetailViewController: UIViewController {
     @IBOutlet weak var homeStadium: UILabel!
     @IBOutlet weak var group: UILabel!
     @IBOutlet weak var matchesPlayed: UILabel!
-    
     @IBOutlet weak var teamLogo: UIImageView!
     
     var team : Team!

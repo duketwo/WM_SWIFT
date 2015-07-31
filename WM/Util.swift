@@ -17,8 +17,46 @@ class Util  {
     static var teams = [Team]()
     static var players = [Player]()
     static var clubs = [Club]()
-    //static var imgCache = [:]
     static var imgCache = Dictionary<String, UIImage>()
+    
+    
+    
+    class func getImage(imageUrl : String?,completion: ((image: UIImage) -> Void)) {
+        
+        
+        let cache = Util.imgCache as NSDictionary
+        if let image = cache.objectForKey(imageUrl!) as? UIImage {
+            
+            println("[loaded from cache]: " + imageUrl!)
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(image: image)
+                    return
+                }
+            }
+            
+        } else {
+            
+            println("[added to cache]: " + imageUrl!)
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+                
+                let url = NSURL(string: imageUrl!);
+                let data = NSData(contentsOfURL: url!)
+                let image = UIImage(data: data!)
+                
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    Util.imgCache[imageUrl!] = image
+                    completion(image: image!)
+                    return
+                }
+            }
+            
+        }
+        
+    }
     
     class func getTeamArray(sort : Bool, completion: ((array: [Team]) -> Void)) {
         
@@ -40,8 +78,8 @@ class Util  {
                         var group = dict["group"] as! String
                         var matchesPlayed = dict["matchesPlayed"] as! Int
                         var imageUrl = dict["logo"] as! String;
-//                        let url = NSURL(string: imageUrl);
-//                        let data = NSData(contentsOfURL: url!)
+                        //                        let url = NSURL(string: imageUrl);
+                        //                        let data = NSData(contentsOfURL: url!)
                         var image = UIImage(data: data!);
                         var newTeam:Team = Team(name: name, group: group, matchesPlayed: matchesPlayed, imageUrl: imageUrl, foundedYear: foundedYear, homeStadium: homeStadium)
                         
