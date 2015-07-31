@@ -36,9 +36,8 @@ class Player: NSObject {
     var clubId : Int?
     var id : Int?
     var type : String?
-    var image:UIImage?
     
-    init(firstName: String?, lastName: String?, nationality: String?, age:Int?, goals: Int?, image: UIImage?, birthCity: String?) {
+    init(firstName: String?, lastName: String?, nationality: String?, age:Int?, goals: Int?, imageUrl: String?, birthCity: String?) {
         
         self.firstName = firstName
         self.lastName = lastName
@@ -46,7 +45,7 @@ class Player: NSObject {
         self.age = age
         self.birthCity = birthCity
         self.goals = goals
-        self.image = image
+        self.imageUrl = imageUrl
     }
     
 }

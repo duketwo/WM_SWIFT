@@ -56,6 +56,15 @@ class PlayerDetailViewController: UIViewController {
         ageLabel.text = String(player.age!)
         goalsLabel.text = String(player.goals!)
         birthCityLabel.text = player.birthCity
-        playerImage.image = player.image
+        
+        Util.getImage(player.imageUrl) { image in
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.playerImage.image = image;
+                }
+            }
+        }
+
     }
 }

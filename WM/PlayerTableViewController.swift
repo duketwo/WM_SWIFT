@@ -51,7 +51,18 @@ class PlayerTableViewController: UITableViewController, UISearchResultsUpdating 
         var player = self.searchController.active ? filteredData[row] : Util.players[row]
         var label: UILabel = cell.contentView.viewWithTag(1) as! UILabel
         var imageView: UIImageView = cell.contentView.viewWithTag(2) as! UIImageView
-        imageView.image = player.image
+        
+        
+        Util.getImage(player.imageUrl) { image in
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    imageView.image = image;
+                }
+            }
+        }
+        
+
         imageView.userInteractionEnabled = true
         label.text = player.lastName
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"));

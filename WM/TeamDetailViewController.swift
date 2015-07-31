@@ -51,6 +51,14 @@ class TeamDetailViewController: UIViewController {
         homeStadium.text = team.homeStadium
         group.text = team.group
         matchesPlayed.text = String(team.matchesPlayed!)
-        teamLogo.image = team.image
+        Util.getImage(team.imageUrl) { image in
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.teamLogo.image = image;
+                }
+            }
+        }
+
     }
 }

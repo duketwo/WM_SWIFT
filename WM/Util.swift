@@ -53,9 +53,7 @@ class Util  {
                     return
                 }
             }
-            
         }
-        
     }
     
     class func getTeamArray(sort : Bool, completion: ((array: [Team]) -> Void)) {
@@ -78,8 +76,6 @@ class Util  {
                         var group = dict["group"] as! String
                         var matchesPlayed = dict["matchesPlayed"] as! Int
                         var imageUrl = dict["logo"] as! String;
-                        //                        let url = NSURL(string: imageUrl);
-                        //                        let data = NSData(contentsOfURL: url!)
                         var image = UIImage(data: data!);
                         var newTeam:Team = Team(name: name, group: group, matchesPlayed: matchesPlayed, imageUrl: imageUrl, foundedYear: foundedYear, homeStadium: homeStadium)
                         
@@ -122,10 +118,7 @@ class Util  {
                         if let bCity = dict["birthCity"]  as? String  {
                             birthCity = dict["birthCity"] as! String;
                         }
-                        let url = NSURL(string: imageUrl);
-                        let data = NSData(contentsOfURL: url!)
-                        var image = UIImage(data: data!);
-                        var newPlayer:Player = Player(firstName: firstName, lastName: lastName, nationality: nationality, age:age, goals: goals, image: image, birthCity: birthCity)
+                        var newPlayer:Player = Player(firstName: firstName, lastName: lastName, nationality: nationality, age:age, goals: goals, imageUrl: imageUrl, birthCity: birthCity)
                         
                         self.players.append(newPlayer);
                         
@@ -157,7 +150,6 @@ class Util  {
             var error : NSError? = nil
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error) as? [ [String : AnyObject ] ] {
-                    // init(name: String?, country: String?, stadiumName: String?, stadiumCapacity: Int?, foundedYear: Int?, image: UIImage?) {
                     for dict in json {
                         var name = dict["name"] as! String
                         
