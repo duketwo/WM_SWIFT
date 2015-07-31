@@ -63,7 +63,8 @@ class Util  {
             return
         }
         
-        var url  = NSURL(string: "http://www.c4s.de/api/teams")!
+        var url  = NSURL(string: "http://ipol.io/storage/akse/worldcup/teams.json")!
+        //var url  = NSURL(string: "http://www.c4s.de/api/teams")!
         //var url  = NSURL(string: "http://worldcup.kimonolabs.com/api/teams")!
         let task = session.dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
             var error : NSError? = nil
@@ -101,7 +102,9 @@ class Util  {
             completion(array: self.players)
             return
         }
-        var url  = NSURL(string: "http://www.c4s.de/api/players")!
+        
+        var url  = NSURL(string: "http://ipol.io/storage/akse/worldcup/players.json")!
+        //var url  = NSURL(string: "http://www.c4s.de/api/players")!
         //var url  = NSURL(string: "http://worldcup.kimonolabs.com/api/players")!
         let task = session.dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
             var error : NSError? = nil
@@ -144,28 +147,44 @@ class Util  {
             return
         }
         
-        var url  = NSURL(string: "http://www.c4s.de/api/clubs")!
+        var url  = NSURL(string: "http://ipol.io/storage/akse/worldcup/clubs.json")!
+        //var url  = NSURL(string: "http://www.c4s.de/api/clubs")!
         //var url  = NSURL(string: "http://worldcup.kimonolabs.com/api/clubs")!
         let task = session.dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
             var error : NSError? = nil
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error) as? [ [String : AnyObject ] ] {
                     for dict in json {
-                        var name = dict["name"] as! String
+                        
+                        var name = ""
+                        if let szName = dict["country"] as? String {
+                            name = szName
+                        }
                         
                         var country = ""
-                        if let nCountry = dict["country"] as? String {
-                            country = dict["country"] as! String
+                        if let szCountry = dict["country"] as? String {
+                            country = szCountry
                         }
-                        var stadiumName = dict["stadiumName"] as! String
-                        var stadiumCapacity = dict["stadiumCapacity"] as! Int
+                        
+                        var stadiumName = ""
+                        if let szStadiumName = dict["stadiumName"] as? String  {
+                            stadiumName = szStadiumName
+                        }
+                        
+                        var stadiumCapacity = 0
+                        if let nstadiumCapacity = dict["stadiumCapacity"] as? Int {
+                            stadiumCapacity = nstadiumCapacity
+                        }
                         
                         var foundedYear = 0
                         if let nFoundedYear = dict["foundedYear"] as? Int {
-                            foundedYear = dict["foundedYear"] as! Int
+                            foundedYear = nFoundedYear
                         }
                         
-                        var imageUrl = dict["logo"] as! String;
+                        var imageUrl = ""
+                        if let szImageUrl = dict["logo"] as? String {
+                            imageUrl = szImageUrl
+                        }
                         
                         var newClub:Club = Club(name: name, country: country, stadiumName: stadiumName, stadiumCapacity: stadiumCapacity, foundedYear: foundedYear, imageUrl: imageUrl)
                         
